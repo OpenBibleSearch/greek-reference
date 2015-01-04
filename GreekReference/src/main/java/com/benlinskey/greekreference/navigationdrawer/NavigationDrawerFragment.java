@@ -16,6 +16,7 @@
 
 package com.benlinskey.greekreference.navigationdrawer;
 
+import android.content.Context;
 import android.support.v7.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
@@ -55,6 +56,18 @@ public class NavigationDrawerFragment extends Fragment {
      * expands it. This shared preference tracks this.
      */
     private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
+    
+    // Icon names. These can be passed to getDrawableId to get int identifiers.
+    private static final String IC_LIST_DARK = "ic_list_dark";
+    private static final String IC_LIST_WHITE = "ic_list_light";
+    private static final String IC_STAR_DARK = "ic_star_dark";
+    private static final String IC_STAR_LIGHT = "ic_star_light";
+    private static final String IC_CLOCK_DARK = "ic_clock_dark";
+    private static final String IC_CLOCK_LIGHT = "ic_clock_light";
+    private static final String IC_BOOK_DARK = "ic_book_dark";
+    private static final String IC_BOOK_LIGHT = "ic_book_light";
+    private static final String IC_BOOKMARK_DARK = "ic_bookmark_dark";
+    private static final String IC_BOOKMARK_LIGHT = "ic_bookmark_light";
 
     /**
      * A pointer to the current callbacks instance (the Activity).
@@ -112,16 +125,16 @@ public class NavigationDrawerFragment extends Fragment {
         NavigationDrawerItem[] items = new NavigationDrawerItem[] {
                 new NavigationDrawerHeading(100, getString(R.string.nav_drawer_heading_lexicon)),
                 new NavigationDrawerRow(101, getString(R.string.nav_drawer_row_browse_lexicon),
-                        "ic_list_dark", "ic_list_light", getActivity()),
+                        getDrawableId(IC_LIST_DARK), getDrawableId(IC_LIST_WHITE), getActivity()),
                 new NavigationDrawerRow(102, getString(R.string.nav_drawer_row_favorites),
-                        "ic_star_dark", "ic_star_light", getActivity()),
+                        getDrawableId(IC_STAR_DARK), getDrawableId(IC_STAR_LIGHT), getActivity()),
                 new NavigationDrawerRow(103, getString(R.string.nav_drawer_row_history),
-                        "ic_clock_dark", "ic_clock_light", getActivity()),
+                        getDrawableId(IC_CLOCK_DARK), getDrawableId(IC_CLOCK_LIGHT), getActivity()),
                 new NavigationDrawerHeading(200, getString(R.string.nav_drawer_heading_grammar)),
                 new NavigationDrawerRow(201, getString(R.string.nav_drawer_row_browse_grammar),
-                        "ic_book_dark", "ic_book_light", getActivity()),
+                        getDrawableId(IC_BOOK_DARK), getDrawableId(IC_BOOK_LIGHT), getActivity()),
                 new NavigationDrawerRow(202, getString(R.string.nav_drawer_row_bookmarks),
-                        "ic_bookmark_dark", "ic_bookmark_light", getActivity())
+                        getDrawableId(IC_BOOKMARK_DARK), getDrawableId(IC_BOOKMARK_LIGHT), getActivity())
         };
 
         mDrawerListView.setAdapter(new NavigationDrawerAdapter(getActivity(),
@@ -330,5 +343,16 @@ public class NavigationDrawerFragment extends Fragment {
      */
     public void disableDrawerIndicator() {
         mDrawerToggle.setDrawerIndicatorEnabled(false);
+    }
+
+    /**
+     * Returns the identifier for the drawable with the given name.
+     * @param name a drawable name
+     * @return the identifier for the drawable
+     */
+    private int getDrawableId(String name) {
+        Context context = getActivity();
+        String packageName = context.getPackageName();
+        return context.getResources().getIdentifier(name, "drawable", packageName);
     }
 }
