@@ -5,7 +5,7 @@ android:
         - build-tools-24.0.1
 
         # SDK version
-        - android-24
+        #- android-24
 
         # Additional components
         - extra-android-m2repository
